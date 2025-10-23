@@ -3,4 +3,16 @@
 
 @theme {
   --default-font-family: "SF Pro Text", sans-serif;
+  --color-primary: #1677ff;
+  --color-primary-light: #4096ff;
+  --color-primary-dark: #0958d9;
+  --color-primary-shadow: rgb(5, 145, 255, 10%);
+  --color-black-opacity-2: rgb(0, 0, 0, 2%);
+  --color-black-opacity-4: rgb(0, 0, 0, 4%);
+  --color-black-opacity-6: rgb(0, 0, 0, 6%);
+  --color-black-opacity-15: rgb(0, 0, 0, 15%);
+  --color-black-opacity-25: rgb(0, 0, 0, 25%);
+  --color-black-opacity-88: rgb(0, 0, 0, 88%);
+  --color-gray-light: #d9d9d9;
+  --shadow-button: 0 2px 0 0 var(--color-black-opacity-2);
 }
