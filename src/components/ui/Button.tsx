@@ -11,17 +11,20 @@ interface NativeLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 type Mode = "primary" | "default" | "dashed" | "text" | "link";
 
+type Size = "small" | "default" | "large";
+
 interface CommonProps {
   mode?: Mode;
+  size?: Size;
 }
 
 type ButtonProps = (NativeButtonProps | NativeLinkProps) & CommonProps;
 
 const BASE = clsx(
-  "inline-block cursor-pointer rounded-md px-3.75 py-1.75 text-base/normal outline-0 transition-colors disabled:cursor-not-allowed",
+  "inline-block cursor-pointer rounded-md px-3.75 outline-0 transition-colors disabled:cursor-not-allowed",
 );
 
-const STYLES: Record<Mode, string> = {
+const STYLES_MODE: Record<Mode, string> = {
   primary: clsx(
     BASE,
     "border border-primary bg-primary text-white shadow-button shadow-primary-shadow",
@@ -64,12 +67,19 @@ const STYLES: Record<Mode, string> = {
   ),
 };
 
+const STYLES_SIZE: Record<Size, string> = {
+  small: clsx("py-0.25 text-sm"),
+  default: clsx("py-1.25 text-sm"),
+  large: clsx("py-1.75 text-base/normal"),
+};
+
 export default function Button({
   className,
   mode = "default",
+  size = "default",
   ...props
 }: ButtonProps) {
-  const styles = clsx(STYLES[mode], className);
+  const styles = clsx(STYLES_MODE[mode], STYLES_SIZE[size], className);
 
   if (props.href !== undefined) {
     return <a {...props} className={styles} />;
