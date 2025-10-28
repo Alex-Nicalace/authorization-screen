@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import type { Size } from "../../types";
 
 interface NativeButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: never;
@@ -10,8 +11,6 @@ interface NativeLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 type Mode = "primary" | "default" | "dashed" | "text" | "link";
-
-type Size = "small" | "default" | "large";
 
 interface CommonProps {
   mode?: Mode;
