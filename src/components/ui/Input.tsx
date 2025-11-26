@@ -2,14 +2,13 @@ import clsx from "clsx";
 import SuccessIcon from "../../assets/icons/check-circle-filled.svg";
 import ErrorIcon from "../../assets/icons/close-circle-filled.svg";
 import WarningIcon from "../../assets/icons/exclamation-circle-filled.svg";
-import type { Size } from "../../types";
-
-type Status = "default" | "error" | "warning" | "success";
+import type { Size, Status } from "../../types";
 
 interface InputProps extends React.ComponentPropsWithRef<"input"> {
   startAdornment?: React.ReactNode;
   dimension?: Size;
   status?: Status;
+  isStatusIcon?: boolean;
 }
 
 type Component = "wrap" | "input" | "icon";
@@ -86,6 +85,7 @@ export default function Input({
   startAdornment,
   dimension = "default",
   status = "default",
+  isStatusIcon = true,
   ...props
 }: InputProps) {
   return (
@@ -114,7 +114,7 @@ export default function Input({
         {...props}
         className={clsx(STYLES_BASE.input, STYLES_SIZE[dimension].input)}
       />
-      {status !== "default" && (
+      {status !== "default" && isStatusIcon && (
         <div
           className={clsx(STYLES_BASE.icon, STYLES_SIZE[dimension].icon)}
           aria-hidden="true"
