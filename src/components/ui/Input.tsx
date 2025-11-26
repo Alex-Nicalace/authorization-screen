@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import type { InputHTMLAttributes } from "react";
 import SuccessIcon from "../../assets/icons/check-circle-filled.svg";
 import ErrorIcon from "../../assets/icons/close-circle-filled.svg";
 import WarningIcon from "../../assets/icons/exclamation-circle-filled.svg";
@@ -7,7 +6,7 @@ import type { Size } from "../../types";
 
 type Status = "default" | "error" | "warning" | "success";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.ComponentPropsWithRef<"input"> {
   startAdornment?: React.ReactNode;
   dimension?: Size;
   status?: Status;
@@ -78,6 +77,10 @@ const STYLES_SIZE: Record<Size, Record<Component, string>> = {
   },
 };
 
+function handleClickWrapper(e: React.MouseEvent<HTMLDivElement>) {
+  e.currentTarget.querySelector("input")?.focus();
+}
+
 export default function Input({
   className,
   startAdornment,
@@ -93,6 +96,7 @@ export default function Input({
         STYLES_STATUS[status].wrap,
         className,
       )}
+      onClick={handleClickWrapper}
     >
       {startAdornment && (
         <div
