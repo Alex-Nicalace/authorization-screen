@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import Input from "./Input";
 import { useRefs } from "../../hooks/useRefs";
+import type { Status } from "../../types";
+import Input from "./Input";
 
 type Type = "number" | "text";
 
@@ -8,12 +9,16 @@ export interface OtpInputProps
   extends Omit<React.ComponentPropsWithRef<"div">, "onChange"> {
   length: number;
   type?: Type;
+  status?: Status;
+  disabled?: boolean;
   onChange?: (value: string) => void;
 }
 export default function OtpInput({
   length,
   className,
   type = "text",
+  status = "default",
+  disabled,
   onChange,
   ...props
 }: OtpInputProps) {
@@ -96,6 +101,9 @@ export default function OtpInput({
           inputMode={type === "text" ? "text" : "numeric"}
           size={1}
           ref={setInputsRef(index)}
+          status={status}
+          isStatusIcon={false}
+          disabled={disabled}
           onInput={handleInput(index)}
           onKeyDown={handleKeyDown(index)}
           onFocus={handleFocus}
