@@ -3,6 +3,7 @@
 
 @theme {
   --default-font-family: "SF Pro Text", sans-serif;
+
   --color-primary: #1677ff;
   --color-primary-light: #4096ff;
   --color-primary-dark: #0958d9;
@@ -20,5 +21,8 @@
   --color-black-opacity-45: rgb(0, 0, 0, 45%);
   --color-black-opacity-88: rgb(0, 0, 0, 88%);
   --color-gray-light: #d9d9d9;
+
   --shadow-button: 0 2px 0 0 var(--color-black-opacity-2);
+
+  --leading-133: 133%;
 }
