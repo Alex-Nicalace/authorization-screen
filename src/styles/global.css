@@ -21,8 +21,19 @@
   --color-black-opacity-45: rgb(0, 0, 0, 45%);
   --color-black-opacity-88: rgb(0, 0, 0, 88%);
   --color-gray-light: #d9d9d9;
+  --color-whitesmoke: #f5f5f5;
 
   --shadow-button: 0 2px 0 0 var(--color-black-opacity-2);
 
   --leading-133: 133%;
+}
+
+/* кастомные утилиты для layout */
+@layer utilities {
+  .page-container {
+    @apply mx-auto w-full;
+    max-width: 1280px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
