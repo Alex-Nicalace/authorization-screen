@@ -20,10 +20,15 @@ const formDataSchema = z.object({
 
 type FormData = z.infer<typeof formDataSchema>;
 
+interface LoginFormProps
+  extends Omit<React.ComponentProps<"form">, "onSubmit"> {
+  onSuccess?: () => void;
+}
 export default function LoginForm({
   className,
+  onSuccess,
   ...props
-}: React.ComponentProps<"form">) {
+}: LoginFormProps) {
   const id = useId();
   const [userFormData, setFormData] = useState<Partial<FormData>>({});
   const [showErrors, setShowErrors] = useState(false);
@@ -52,6 +57,8 @@ export default function LoginForm({
       setShowErrors(true);
       return;
     }
+
+    onSuccess?.();
   };
 
   const errors = showErrors ? validate() : undefined;
