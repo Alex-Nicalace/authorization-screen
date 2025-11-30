@@ -7,10 +7,16 @@ import Logo from "../../components/Logo";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Title from "../../components/ui/Title";
+import { useAuth } from "./useAuth";
 
 const initialFormState = {
   email: "",
   password: "",
+};
+
+const DEMO_VALID = {
+  email: "user@test.com",
+  password: "12345678",
 };
 
 const formDataSchema = z.object({
@@ -32,6 +38,13 @@ export default function LoginForm({
   const id = useId();
   const [userFormData, setFormData] = useState<Partial<FormData>>({});
   const [showErrors, setShowErrors] = useState(false);
+  const {
+    mutate: login,
+    isPending: isLogging,
+    isError,
+    error,
+    reset: resetError,
+  } = useAuth();
 
   const formData = {
     ...initialFormState,
@@ -48,7 +61,7 @@ export default function LoginForm({
     return z.treeifyError(res.error);
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const errors = validate();
@@ -58,7 +71,15 @@ export default function LoginForm({
       return;
     }
 
-    onSuccess?.();
+    login(formData, {
+      onSuccess,
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((l) => ({ ...l, [name]: value }));
+    resetError();
   };
 
   const errors = showErrors ? validate() : undefined;
@@ -83,10 +104,9 @@ export default function LoginForm({
           placeholder="Email"
           startAdornment={<UserIcon />}
           dimension="large"
+          name="email"
           value={formData.email}
-          onChange={(e) =>
-            setFormData((l) => ({ ...l, email: e.target.value }))
-          }
+          onChange={handleChange}
           status={errors?.properties?.email && "error"}
           helperText={errors?.properties?.email?.errors.join(", ")}
         />
@@ -99,19 +119,32 @@ export default function LoginForm({
           placeholder="Password"
           startAdornment={<LockIcon />}
           dimension="large"
+          name="password"
           value={formData.password}
-          onChange={(e) =>
-            setFormData((l) => ({ ...l, password: e.target.value }))
-          }
+          onChange={handleChange}
           status={errors?.properties?.password && "error"}
           helperText={errors?.properties?.password?.errors.join(", ")}
         />
+        {isError && (
+          <p className="text-error">
+            {`${error.message} `}
+            <button
+              className="cursor-pointer underline"
+              onClick={() => {
+                setFormData(DEMO_VALID);
+                resetError();
+              }}
+            >
+              correct data
+            </button>
+          </p>
+        )}
         <Button
           mode="primary"
           size="large"
-          disabled={!isFilledForm || !!errors}
+          disabled={!isFilledForm || !!errors || isLogging}
         >
-          Log in
+          {isLogging ? "Processing..." : "Log in"}
         </Button>
       </div>
     </form>

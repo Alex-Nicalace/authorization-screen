@@ -8,8 +8,6 @@ export default function AuthPage(/*{ }: AuthPageProps*/) {
   const [step, setStep] = useState<Step>("login");
 
   const handleSuccessLoginForm = () => {
-    console.log("otp");
-
     setStep("otp");
   };
 
