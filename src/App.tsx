@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthPage } from "./pages/AuthPage";
+import AuthPage from "./pages/AuthPage";
 
 const queryClient = new QueryClient();
 

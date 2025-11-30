@@ -1,6 +1,5 @@
 import { useState } from "react";
-import LoginForm from "./LoginForm";
-import OtpForm from "./OtpForm";
+import { LoginForm, OtpForm } from "../features/authentication";
 
 type Step = "login" | "otp";
 
