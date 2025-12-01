@@ -129,6 +129,7 @@ export default function LoginForm({
           <p className="text-error">
             {`${error.message} `}
             <button
+              type="button"
               className="cursor-pointer underline"
               onClick={() => {
                 setFormData(DEMO_VALID);
