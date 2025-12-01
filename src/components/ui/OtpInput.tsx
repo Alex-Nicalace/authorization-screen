@@ -11,6 +11,8 @@ export interface OtpInputProps
   type?: Type;
   status?: Status;
   disabled?: boolean;
+  value?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
 }
 export default function OtpInput({
@@ -19,6 +21,8 @@ export default function OtpInput({
   type = "text",
   status = "default",
   disabled,
+  value,
+  defaultValue,
   onChange,
   ...props
 }: OtpInputProps) {
@@ -45,7 +49,8 @@ export default function OtpInput({
 
     if (onChange) {
       const total = [...InputsRef.current.values()].reduce(
-        (acc, input) => acc + input.value,
+        (acc, input, indexEl) =>
+          acc + (indexEl < index && !input.value ? " " : input.value), // если после пустых ячеек ввыодить символ то чтобы он не перебрасывался
         "",
       );
       onChange(total);
@@ -104,6 +109,8 @@ export default function OtpInput({
           status={status}
           isStatusIcon={false}
           disabled={disabled}
+          value={(value && value?.[index]) || ""} // если компонент контролируемый то все инпуты не должны быть undefined
+          defaultValue={defaultValue?.[index]}
           onInput={handleInput(index)}
           onKeyDown={handleKeyDown(index)}
           onFocus={handleFocus}
