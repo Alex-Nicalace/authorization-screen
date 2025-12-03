@@ -1,22 +1,19 @@
 import clsx from "clsx";
 import { useId, useState } from "react";
 import { z } from "zod";
+import { DEMO_OTP_VALID } from "../../api/authApi";
 import LockIcon from "../../assets/icons/lock.svg";
 import UserIcon from "../../assets/icons/user.svg";
 import Logo from "../../components/Logo";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Title from "../../components/ui/Title";
+import type { OtpToken } from "./OtpForm";
 import { useAuth } from "./useAuth";
 
 const initialFormState = {
   email: "",
   password: "",
-};
-
-const DEMO_VALID = {
-  email: "user@test.com",
-  password: "12345678",
 };
 
 const formDataSchema = z.object({
@@ -28,7 +25,7 @@ type FormData = z.infer<typeof formDataSchema>;
 
 interface LoginFormProps
   extends Omit<React.ComponentProps<"form">, "onSubmit"> {
-  onSuccess?: () => void;
+  onSuccess?: (otpToken: OtpToken) => void;
 }
 export default function LoginForm({
   className,
@@ -132,7 +129,7 @@ export default function LoginForm({
               type="button"
               className="cursor-pointer underline"
               onClick={() => {
-                setFormData(DEMO_VALID);
+                setFormData(DEMO_OTP_VALID);
                 resetError();
               }}
             >
